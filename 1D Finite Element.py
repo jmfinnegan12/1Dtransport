@@ -17,7 +17,7 @@ v, L, dx, t, dt = 0.1, 200, 2, 400, 10
 # matrix dimensions
 rows = int(t / dt) + 1
 n_el = int(L / dx)
-cols = int(L / dx) + 1
+cols = n_el + 1
 
 # initial conditions
 C0 = np.zeros(cols)
@@ -34,7 +34,7 @@ Be = [[2 * alpha, alpha], [alpha, 2 * alpha]]  # element storage matrix
 # global matrices
 A = np.zeros((cols, cols))
 B = np.zeros((cols, cols))
-for i in range(cols):
+for i in range(1, cols):
     A[i, i] += Ae[1][1]  # assemble Ae elements
     A[i, i - 1] += Ae[1][0]
     A[i - 1, i] += Ae[0][1]
@@ -49,10 +49,11 @@ A_f = (A/2 + B/dt)
 
 # TIME STEPPING
 for k in range(1, rows):
-    b_f = np.dot((-A/2 + B/dt), C[k-1, :])  # solve LHS
-    C[k, :] = np.linalg.solve(A_f, b_f)     # solve RHS
-    C[k][0] = 1                       # boundary condition at source
-    C[k][-1] = 0                      # boundary condition at end
+    b_f = np.dot((-A/2 + B/dt), C[k-1, :])      # solve LHS
+    b_f[0] = -((-A[0][0]/2 + B[0][0]/dt))       # boundary condition
+    C[k, :] = np.linalg.solve(A_f, b_f)         # solve RHS
+    # C[k][0] = 1                       # boundary condition at source
+    # C[k][-1] = 0                      # boundary condition at end
 
 # PLOT
 x = np.linspace(0, L, num=cols)
