@@ -38,7 +38,7 @@ B = diags(B_diagonals, offsets=[-1, 0, 1], shape=(cols, cols)).toarray()
 for k in range(1, rows):
     b = np.dot(B, C[k-1, :])            # solve RHS
     C[k, :] = np.linalg.solve(A, b)     # solve LHS
-    C[k][0] = 1                         # enforce boundary condition
+    C[k][0] = 1                         # boundary condition
 print('Centered difference results: ')
 print(C)
 
