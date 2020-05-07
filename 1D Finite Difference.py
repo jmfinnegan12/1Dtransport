@@ -48,6 +48,7 @@ plt.plot(x, C[20, :])
 plt.plot(x, C[30, :])
 plt.plot(x, C[40, :])
 
+plt.title('Finite Difference Results')
 plt.xlabel('distance (m)')
 plt.ylabel('C/C0')
 plt.legend(['0 days', '100 days', '200 days', '300 days', '400 days'])
