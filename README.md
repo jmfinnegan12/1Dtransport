@@ -1,6 +1,5 @@
 # 1Dtransport
-## Tufts University
-## EOS-288 Groundwater Modeling
+## EOS-288 Groundwater Modeling, Tufts University
 
 This repository consists of 1D solute transport models using python developed as part of the coursework for Tufts EOS-288, Groundwater Modleing. The project considers a 1-D solute transport problem of contaminant migration in a porous medium, described by the following equation:
 
