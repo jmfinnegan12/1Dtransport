@@ -27,16 +27,16 @@ alpha = (R * dx) / 6
 lam_1 = D / dx
 lam_2 = v / 2
 Ae = [[lam_1 - lam_2, -lam_1 + lam_2], [-lam_1 - lam_2, lam_1 + lam_2]]  # element stiffness matrix
-Be = [[2 * alpha, alpha], [alpha, 2 * alpha]]  # element storage matrix
+Be = [[2 * alpha, alpha], [alpha, 2 * alpha]]                            # element storage matrix
 # global matrices
 A = np.zeros((cols, cols))
 B = np.zeros((cols, cols))
 for i in range(1, cols):
-    A[i, i] += Ae[1][1]  # assemble Ae elements
+    A[i, i] += Ae[1][1]             # assemble Ae elements
     A[i, i - 1] += Ae[1][0]
     A[i - 1, i] += Ae[0][1]
     A[i - 1, i - 1] += Ae[0][0]
-    B[i, i] += Be[1][1]  # assemble Be elements
+    B[i, i] += Be[1][1]             # assemble Be elements
     B[i, i - 1] += Be[1][0]
     B[i - 1, i] += Be[0][1]
     B[i - 1, i - 1] += Be[0][0]
@@ -45,9 +45,9 @@ RH = (-A/2 + B/dt)
 
 # TIME STEPPING
 for k in range(1, rows):
-    b_f = np.dot(RH, C[k-1, :])            # solve RHS
-    b_f[0] = LH[0][0] + LH[0][1]*C[k-1][1] # boundary condition
-    C[k, :] = np.linalg.solve(LH, b_f)     # solve LHS
+    b_f = np.dot(RH, C[k-1, :])             # solve RHS
+    b_f[0] = LH[0][0] + LH[0][1]*C[k-1][1]  # boundary condition
+    C[k, :] = np.linalg.solve(LH, b_f)      # solve LHS
 
 # PLOT
 x = np.linspace(0, L, num=cols)

@@ -17,9 +17,8 @@ rows = int(t / dt) + 1
 cols = int(L / dx) + 1
 
 # initial conditions
-C0 = np.zeros(cols)
 C = np.zeros((rows, cols))
-C[:, 0] = 1 # boundary condition: C/C0 = 1 at x=0
+C[:, 0] = 1     # boundary condition: C/C0 = 1 at x=0
 
 # simplified variables from central difference derivation
 G = (D * dt) / (2 * R * dx**2)
@@ -39,7 +38,6 @@ for k in range(1, rows):
     b = np.dot(B, C[k-1, :])            # solve RHS
     b[0] = -(1 + lam_1)                 # boundary condition
     C[k, :] = np.linalg.solve(A, b)     # solve LHS
-print('Centered difference results: ')
 
 x = np.linspace(0, L, num=cols)
 plt.plot(x, C[0, :])
