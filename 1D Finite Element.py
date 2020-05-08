@@ -43,15 +43,16 @@ for i in range(1, cols):
     B[i - 1, i] += Be[0][1]
     B[i - 1, i - 1] += Be[0][0]
 
-# finite element equation matrices
-A_f = (A/2 + B/dt)
-BC = np.dot((-A/2 + B/dt), C[0, :])
+
+
+LH = (A/2 + B/dt)
+RH = (-A/2 + B/dt)
 
 # TIME STEPPING
 for k in range(1, rows):
-    b_f = np.dot((-A/2 + B/dt), C[k-1, :])      # solve RHS
-    b_f[0] = -BC[0]                             # boundary conditions
-    C[k, :] = np.linalg.solve(A_f, b_f)         # solve LHS
+    b_f = np.dot(RH, C[k-1, :])            # solve RHS
+    b_f[0] = LH[0][0] + LH[0][1]*C[k-1][1] # boundary condition
+    C[k, :] = np.linalg.solve(LH, b_f)     # solve LHS
 
 # PLOT
 x = np.linspace(0, L, num=cols)
