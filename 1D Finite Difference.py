@@ -49,7 +49,6 @@ plt.plot(x, C[30, :])
 plt.plot(x, C[40, :])
 
 title_string = 'Finite difference solution\n' + 'D = ' + str(D) + ', R = ' + str(R)
-
 plt.title(title_string)
 plt.xlabel('distance (m)')
 plt.ylabel('C/C0')
