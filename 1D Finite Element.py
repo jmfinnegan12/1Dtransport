@@ -20,7 +20,6 @@ n_el = int(L / dx)
 cols = n_el + 1
 
 # initial conditions
-C0 = np.zeros(cols)
 C = np.zeros((rows, cols))
 C[:, 0] = 1  # boundary condition: C/C0 = 1 at x=0
 
@@ -46,14 +45,13 @@ for i in range(1, cols):
 
 # finite element equation matrices
 A_f = (A/2 + B/dt)
+BC = np.dot((-A/2 + B/dt), C[0, :])
 
 # TIME STEPPING
 for k in range(1, rows):
-    b_f = np.dot((-A/2 + B/dt), C[k-1, :])      # solve LHS
-    b_f[0] = -((-A[0][0]/2 + B[0][0]/dt))       # boundary condition
-    C[k, :] = np.linalg.solve(A_f, b_f)         # solve RHS
-    # C[k][0] = 1                       # boundary condition at source
-    # C[k][-1] = 0                      # boundary condition at end
+    b_f = np.dot((-A/2 + B/dt), C[k-1, :])      # solve RHS
+    b_f[0] = -BC[0]                             # boundary conditions
+    C[k, :] = np.linalg.solve(A_f, b_f)         # solve LHS
 
 # PLOT
 x = np.linspace(0, L, num=cols)
