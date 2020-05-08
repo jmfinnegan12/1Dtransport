@@ -34,7 +34,7 @@ Be = [[2 * alpha, alpha], [alpha, 2 * alpha]]  # element storage matrix
 # global matrices
 A = np.zeros((cols, cols))
 B = np.zeros((cols, cols))
-for i in range(cols):
+for i in range(1, cols):
     A[i, i] += Ae[1][1]  # assemble Ae elements
     A[i, i - 1] += Ae[1][0]
     A[i - 1, i] += Ae[0][1]
@@ -45,14 +45,16 @@ for i in range(cols):
     B[i - 1, i - 1] += Be[0][0]
 
 # finite element equation matrices
-A_f = (A/2 + B/dt)
+LH = (A/2 + B/dt)
+RH = (-A/2 + B/dt)
 
 # TIME STEPPING
 for k in range(1, rows):
-    b_f = np.dot((-A/2 + B/dt), C[k-1, :])  # solve LHS
-    C[k, :] = np.linalg.solve(A_f, b_f)     # solve RHS
-    C[k][0] = 1                       # boundary condition at source
-    C[k][-1] = 0                      # boundary condition at end
+    b_f = np.dot(RH, C[k-1, :])  # solve RHS
+    b_f[0] = LH[0][0] + LH[0][1]*C[k-1][1]
+    C[k, :] = np.linalg.solve(LH, b_f)     # solve LHS
+    # C[k][0] = 1                       # boundary condition at source
+
 
 # PLOT
 x = np.linspace(0, L, num=cols)
