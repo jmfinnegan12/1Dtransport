@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 # initial conditions
 # for R = 1
 v = 0.1
-D = int(input('Enter D (m^2/d): '))
+D = float(input('Enter D (m^2/d): '))
 L, dx = 200, 2
 dist = np.linspace(2, L, num=int(L/dx))
 dist = [int(x) for x in dist]
@@ -39,7 +39,8 @@ plt.plot(dist, C[20, :])
 plt.plot(dist, C[30, :])
 plt.plot(dist, C[40, :])
 
-plt.title('Analytical Solution')
+title_string = 'Analytical solution\n' + 'D = ' + str(D) + ', R = 1'
+plt.title(title_string)
 plt.xlabel('distance (m)')
 plt.ylabel('C/C0')
 plt.legend(['0 days', '100 days', '200 days', '300 days', '400 days'])
