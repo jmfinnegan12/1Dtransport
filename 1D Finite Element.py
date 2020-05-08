@@ -5,7 +5,6 @@
 
 # SETUP
 import numpy as np
-from scipy.sparse import diags
 from matplotlib import pyplot as plt
 
 # PARAMETERS
