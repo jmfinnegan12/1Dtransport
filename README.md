@@ -12,7 +12,7 @@ where	C is	the	solute	concentration,	D is	the	hydrodynamic	dispersion	coefficien
 and	R is	the	retardation	coefficient.	The	analytical	solution	to	this	mathematical	problem	is	based	after Ogata	
 and	Banks	(1961):
 
-![alt text] (https://github.com/jmfinnegan12/1Dtransport/blob/master/Analytical.PNG)
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/Analytical.PNG)
 
 The solution is modeled using both the Finite Difference Method (FDM) and the Finite Element Method (FEM) and compared to the analytical solution. 
 
