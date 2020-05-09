@@ -38,10 +38,3 @@ for i in D:
         plt.savefig(filename)
         # plt.show()
         plt.clf()
-
-    # fd_diff = [(c_fd[10, :] - c_an[10, :]), (c_fd[20, :] - c_an[20, :]), (c_fd[30, :] - c_an[30, :]),
-    #            (c_fd[40, :] - c_an[40, :])]
-    # fe_diff = [(c_fe[10, :] - c_an[10, :]), (c_fe[20, :] - c_an[20, :]), (c_fe[30, :] - c_an[30, :]),
-    #            (c_fe[40, :] - c_an[40, :])]
-    # fd_diff = np.vstack(fe_diff)
-    # fe_diff = np.vstack(fe_diff)
