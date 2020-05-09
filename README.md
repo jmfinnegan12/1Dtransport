@@ -3,7 +3,7 @@
 
 This repository consists of 1D solute transport models using python developed as part of the coursework for Tufts EOS-288, Groundwater Modleing. The project considers a 1-D solute transport problem of contaminant migration in a porous medium, described by the following equation:
 
-![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/PDE.PNG)
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/readme%20photos/PDE.PNG)
 
 subject to initial condition: C(x, 0) = 0 
 and boundary conditions: C(0, t) = C0 and C(inf, t) = 0
@@ -12,7 +12,7 @@ where	C is	the	solute	concentration,	D is	the	hydrodynamic	dispersion	coefficien
 and	R is	the	retardation	coefficient.	The	analytical	solution	to	this	mathematical	problem	is	based	after Ogata	
 and	Banks	(1961):
 
-![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/Analytical.PNG)
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/readme%20photos/Analytical.PNG)
 
 The solution is modeled using both the Finite Difference Method (FDM) and the Finite Element Method (FEM) and compared to the analytical solution. 
 
@@ -25,11 +25,11 @@ The code is summarized below:
 
 The finite difference solution is derived by approximating each of the terms in the 1D flow and transport PDE with the Crank-Nicholson centered difference scheme:
 
-![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/C-N%20scheme.PNG)
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/readme%20photos/C-N%20scheme.PNG)
 
 The solution can be simplified to a tridiagonal system:
 
-![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/tridiag.PNG)
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/readme%20photos/tridiag.PNG)
 
 The system is solved directly at each time step by using the numpy.dot and the numpy.linalg.solve functions
 
@@ -39,22 +39,22 @@ The code accepts user inputs for values of D and R
 
 The finite element solution employs the Galerkin method by defining the operator:
 
-![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/operator.PNG)
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/readme%20photos/operator.PNG)
 
 with a linear trial function:
 
-![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/trial.PNG)
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/readme%20photos/trial.PNG)
 
 
 The element stiffness and storage matrices are defined as follows:
 
-![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/stiffness-storage.PNG)
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/readme%20photos/stiffness-storage.PNG)
 
 The global stiffness and storage matrices are square, tridaigonal matrices that have dimension equal to the number of elements in the mesh. Assembling the global stiffness and storage matrices is a simple matter for a 1D problem.
 
 The final finite element equation can be simplified to:
 
-![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/FE%20equation.PNG)
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/readme%20photos/FE%20equation.PNG)
 
 This equation is solved directly using the numpy.linalg.solve function, with the boundary conditions being reset to a 'dummy equation' to keep a concentration ratio of 1 at x = 0 for each time step
 
