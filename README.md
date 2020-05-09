@@ -21,8 +21,51 @@ Source: EOS-288 class notes and homework assignment text
 The code is summarized below:
 
 
-### Finite Difference Code
+### Finite Difference Method
 
-### Finite Element Code
+The finite difference solution is derived by approximating each of the terms in the 1D flow and transport PDE with the Crank-Nicholson centered difference scheme:
+
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/C-N%20scheme.PNG)
+
+The solution can be simplified to a tridiagonal system:
+
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/tridiag.PNG)
+
+The system is solved directly at each time step by using the numpy.dot and the numpy.linalg.solve functions
+
+The code accepts user inputs for values of D and R
+
+### Finite Element Method
+
+The finite element solution employs the Galerkin method by defining the operator:
+
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/operator.PNG)
+
+with a linear trial function:
+
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/trial.PNG)
 
 
+The element stiffness and storage matrices are defined as follows:
+
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/stiffness-storage.PNG)
+
+The global stiffness and storage matrices are square, tridaigonal matrices that have dimension equal to the number of elements in the mesh. Assembling the global stiffness and storage matrices is a simple matter for a 1D problem.
+
+The final finite element equation can be simplified to:
+
+![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/FE%20equation.PNG)
+
+This equation is solved directly using the numpy.linalg.solve function, with the boundary conditions being reset to a 'dummy equation' to keep a concentration ratio of 1 at x = 0 for each time step
+
+The code accepts user inputs for values of D and R
+
+### Analytical Solution 
+
+The analytical solution uses the complimentary error function (scipy.special.erfc) assuming a retardation factor (R) of 1 to solve the analytical solution equation shown above for every time step and distance element used in the numerical models. 
+
+The code accepts user inputs for values of D and R
+
+### Comparison
+
+The comparison code iterates over all scenarios specified in the problem statement to produce and save plots of the difference in C/C0 between the analytical solution and both numerical methods. The value of C/C0 decreases to zero at distance, so a percentage error was impossible to calculate without encountering a divide by zero condition. Calculating a more complex error value such as relative percent difference was beyond the scope of this assignment
