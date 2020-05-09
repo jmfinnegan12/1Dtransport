@@ -125,7 +125,7 @@ def analytical(d):
     # calculate C using analytical solution for all x>0
     for x in range(len(dist)):
         for t in range(len(time)):
-            C[t + 1][x + 1] = (1 / 2) * (exp(v * dist[x] / D) * erfc((dist[x] + v * time[t]) / (2 * sqrt(D * time[t])))
-                                         + erfc((dist[x] - v * time[t]) / (2 * sqrt(D * time[t]))))
+            C[t + 1][x + 1] = (1 / 2) * (exp(v * dist[x] / d) * erfc((dist[x] + v * time[t]) / (2 * sqrt(d * time[t])))
+                                         + erfc((dist[x] - v * time[t]) / (2 * sqrt(d * time[t]))))
 
     return C
