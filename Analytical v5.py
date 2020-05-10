@@ -16,12 +16,15 @@ L, dx = 200, 2
 dist = np.linspace(2, L, num=int(L/dx))
 dist = [int(x) for x in dist]
 # print(dist)
-t = 400
+t = 200
 
 # calculate C using analytical solution for all x>0
 C = np.zeros(len(dist)+1)
 for x in range(len(dist)):
-    C[x] = (1/2)*(exp(v*dist[x]/D)*erfc((dist[x]+v*t)/(2*sqrt(D*t)))+erfc((dist[x]-v*t)/(2*sqrt(D*t))))
+    try:
+        C[x] = (1/2)*(exp(v*dist[x]/D)*erfc((dist[x]+v*t)/(2*sqrt(D*t)))+erfc((dist[x]-v*t)/(2*sqrt(D*t))))
+    except OverflowError:
+        C[x] = 0    # set C = 0 if math overflow error
 
 # plot
 dist.insert(0, 0)
