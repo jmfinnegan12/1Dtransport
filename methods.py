@@ -129,3 +129,28 @@ def analytical(d):
                                          + erfc((dist[x] - v * time[t]) / (2 * sqrt(d * time[t]))))
 
     return C
+
+
+def analytical_vfive(d):
+    """
+    @param d: float, hydrodynamic dispersion coefficient (m^2/d)
+    @return C: array, matrix where rows are time steps and columns are C/C0(x)
+    """
+    v = 0.5
+    D = float(d)
+    L, dx = 200, 2
+    dist = np.linspace(2, L, num=int(L / dx))
+    dist = [int(x) for x in dist]
+    # print(dist)
+    t = 200
+
+    # calculate C using analytical solution for all x>0
+    C = np.zeros(len(dist) + 1)
+    for x in range(len(dist)):
+        try:
+            C[x] = (1 / 2) * (exp(v * dist[x] / D) * erfc((dist[x] + v * t) / (2 * sqrt(D * t))) + erfc(
+                (dist[x] - v * t) / (2 * sqrt(D * t))))
+        except OverflowError:
+            C[x] = 0  # set C = 0 if math overflow error
+
+    return C
