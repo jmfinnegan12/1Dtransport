@@ -12,7 +12,7 @@ from matplotlib import pyplot as plt
 D = float(input('Enter D (m^2/d): '))
 R = float(input('Enter R: '))
 # other parameters
-v, L, dx, t, dt = 0.1, 200, 2, 400, 10
+v, L, dx, t, dt = 0.5, 200, 2, 400, 10
 # matrix dimensions
 rows = int(t / dt) + 1
 n_el = int(L / dx)
