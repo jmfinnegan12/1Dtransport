@@ -21,7 +21,7 @@ def finite_element(d, r):
     d = float(d)
     r = float(r)
     # other parameters
-    v, L, dx, t, dt = 0.1, 200, 2, 400, 10
+    v, L, dx, t, dt = 0.5, 200, 2, 400, 10
     # matrix dimensions
     rows = int(t / dt) + 1
     n_el = int(L / dx)
@@ -71,7 +71,7 @@ def finite_difference(d, r):
     r = float(r)
 
     # other parameters
-    v, L, dx, t, dt = 0.1, 200, 2, 400, 10
+    v, L, dx, t, dt = 0.5, 200, 2, 400, 10
     # matrix dimensions
     rows = int(t / dt) + 1
     cols = int(L / dx) + 1
