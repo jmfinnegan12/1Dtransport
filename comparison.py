@@ -19,9 +19,7 @@ for i in D:
     # compare results
     for j in range(1, 5):
         fe_diff = np.subtract(c_fe[(j * 10), :], c_an[(j * 10), :])
-        # fe_percent = fe_diff/c_an
         fd_diff = np.subtract(c_fd[(j * 10), :], c_an[(j * 10), :])
-        # fd_percent = fd_diff / c_an[(j*10), :]
 
         x = np.linspace(0, 200, num=101)
         plt.plot(x, fe_diff, fd_diff)
