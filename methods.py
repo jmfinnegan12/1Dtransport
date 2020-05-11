@@ -1,7 +1,7 @@
 # Groundwater Modeling Coding Assignment #2
 # Jim Finnegan
 # 1D Transport Equation
-# functions for FE and FD
+# functions for FE, FD, and analytical solution
 
 import numpy as np
 from scipy.sparse import diags
@@ -28,24 +28,24 @@ def finite_element(d, r):
     cols = n_el + 1
     # initial conditions
     C = np.zeros((rows, cols))
-    C[:, 0] = 1  # boundary condition: C/C0 = 1 at x=0
+    C[:, 0] = 1      # boundary condition: C/C0 = 1 at x=0
 
     # CONSTRUCT STIFFNESS AND STORAGE MATRICES
     # element matrices
     alpha = (r * dx) / 6
     lam_1 = d / dx
     lam_2 = v / 2
-    Ae = [[lam_1 - lam_2, -lam_1 + lam_2], [-lam_1 - lam_2, lam_1 + lam_2]]  # element stiffness matrix
-    Be = [[2 * alpha, alpha], [alpha, 2 * alpha]]  # element storage matrix
+    Ae = [[lam_1 - lam_2, -lam_1 + lam_2], [-lam_1 - lam_2, lam_1 + lam_2]]     # element stiffness matrix
+    Be = [[2 * alpha, alpha], [alpha, 2 * alpha]]                               # element storage matrix
     # global matrices
     A = np.zeros((cols, cols))
     B = np.zeros((cols, cols))
     for i in range(1, cols):
-        A[i, i] += Ae[1][1]  # assemble Ae elements
+        A[i, i] += Ae[1][1]             # assemble Ae elements
         A[i, i - 1] += Ae[1][0]
         A[i - 1, i] += Ae[0][1]
         A[i - 1, i - 1] += Ae[0][0]
-        B[i, i] += Be[1][1]  # assemble Be elements
+        B[i, i] += Be[1][1]             # assemble Be elements
         B[i, i - 1] += Be[1][0]
         B[i - 1, i] += Be[0][1]
         B[i - 1, i - 1] += Be[0][0]
@@ -54,9 +54,9 @@ def finite_element(d, r):
 
     # TIME STEPPING
     for k in range(1, rows):
-        b_f = np.dot(RH, C[k - 1, :])  # solve RHS
-        b_f[0] = LH[0][0] + LH[0][1] * C[k - 1][1]  # boundary condition
-        C[k, :] = np.linalg.solve(LH, b_f)  # solve LHS
+        b_f = np.dot(RH, C[k - 1, :])                   # solve RHS
+        b_f[0] = LH[0][0] + LH[0][1] * C[k - 1][1]      # boundary condition
+        C[k, :] = np.linalg.solve(LH, b_f)              # solve LHS
     return C
 
 
@@ -94,9 +94,9 @@ def finite_difference(d, r):
     B = diags(B_diagonals, offsets=[-1, 0, 1], shape=(cols, cols)).toarray()
 
     for k in range(1, rows):
-        b = np.dot(B, C[k - 1, :])  # solve RHS
-        b[0] = -(1 + lam_1)  # boundary condition
-        C[k, :] = np.linalg.solve(A, b)  # solve LHS
+        b = np.dot(B, C[k - 1, :])           # solve RHS
+        b[0] = -(1 + lam_1)                  # boundary condition
+        C[k, :] = np.linalg.solve(A, b)      # solve LHS
 
     return C
 
@@ -141,7 +141,6 @@ def analytical_vfive(d):
     L, dx = 200, 2
     dist = np.linspace(2, L, num=int(L / dx))
     dist = [int(x) for x in dist]
-    # print(dist)
     t = 200
 
     # calculate C using analytical solution for all x>0
