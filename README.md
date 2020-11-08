@@ -35,7 +35,6 @@ The system is solved directly at each time step by using the numpy.dot and the n
 
 The code accepts user inputs for values of D and R
 
-##### Example Finite Difference Solution
 ![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/Final%20Plots/FD%20R1%20D_1.png)
 
 ### Finite Element Method
@@ -63,7 +62,6 @@ This equation is solved directly using the numpy.linalg.solve function, with the
 
 The code accepts user inputs for values of D and R
 
-##### Example Finite Element Solution
 ![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/Final%20Plots/FE%20R1%20D_1.png)
 
 ### Analytical Solution 
@@ -72,12 +70,10 @@ The analytical solution uses the complimentary error function (scipy.special.erf
 
 The code accepts user inputs for values of D and R
 
-##### Example Analytical Solution
 ![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/Final%20Plots/A%20R1%20D_1.png)
 
 ### Comparison
 
 The comparison code iterates over all scenarios specified in the problem statement to produce and save plots of the difference in C/C0 between the analytical solution and both numerical methods. The value of C/C0 decreases to zero at distance, so a percentage error was impossible to calculate without encountering a divide by zero condition. Calculating a more complex error value such as relative percent difference was beyond the scope of this assignment
 
-##### Example Comparison
 ![alt text](https://github.com/jmfinnegan12/1Dtransport/blob/master/Comparison%20Plots/comparison_D_1_t400.png)
